@@ -74,9 +74,9 @@ class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
   template_name = "leads/lead_update.html"
   form_class = LeadModelForm
 
-    def get_queryset(self):
-      user = self.request.user
-      return Lead.objects.filter(organisation=user.userprofile)
+  def get_queryset(self):
+    user = self.request.user
+    return Lead.objects.filter(organisation=user.userprofile)
 
   def get_success_url(self):
     return reverse("leads:lead-detail")
@@ -84,7 +84,10 @@ class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
 
 class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
   template_name = "leads/lead_delete.html"
-  queryset = Lead.objects.all()
+
+  def get_queryset(self):
+    user = self.request.user
+    return Lead.objects.filter(organisation=user.userprofile)
 
   def get_success_url(self):
     return reverse("leads:lead-list")
