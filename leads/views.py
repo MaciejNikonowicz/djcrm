@@ -40,17 +40,17 @@ class LeadDetailView(LoginRequiredMixin, generic.DetailView):
   template_name = "leads/lead_detail.html"
   context_object_name = "lead"
 
-    def get_queryset(self):
-      user = self.request.user
+  def get_queryset(self):
+    user = self.request.user
 
-      # initial queryset of leads for the entire organisation
-      if user.is_organisor:
-        queryset = Lead.objects.filter(organisation=user.userprofile)
-      else:
-        queryset = Lead.objects.filter(organisation=user.agent.organisation)
-        # filter for the current agent (logged in)
-        queryset = queryset.filter(agent__user=user)
-      return queryset
+    # initial queryset of leads for the entire organisation
+    if user.is_organisor:
+      queryset = Lead.objects.filter(organisation=user.userprofile)
+    else:
+      queryset = Lead.objects.filter(organisation=user.agent.organisation)
+      # filter for the current agent (logged in)
+      queryset = queryset.filter(agent__user=user)
+    return queryset
 
 
 class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
