@@ -5,14 +5,15 @@ from .models import Lead, Agent
 
 User = get_user_model()
 
+
 class LeadModelForm(forms.ModelForm):
     class Meta:
         model = Lead
         fields = (
-            'first_name',
-            'last_name',
-            'age',
-            'agent',
+            "first_name",
+            "last_name",
+            "age",
+            "agent",
         )
 
 
@@ -26,7 +27,7 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("username",)
-        field_classes = {'username': UsernameField}
+        field_classes = {"username": UsernameField}
 
 
 class AssignAgentForm(forms.Form):
